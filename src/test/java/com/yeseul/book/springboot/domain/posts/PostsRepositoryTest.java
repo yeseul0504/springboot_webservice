@@ -30,7 +30,7 @@ public class PostsRepositoryTest {
         String title = "테스트 게시글";
         String content = "테스트 내용";
 
-        postsRepository.save(Posts.builder()
+        postsRepository.save(Posts.builder() //posts 에 insert/update쿼리 실행. id값 이 있으면 update, 없으면 insert
                 .title(title)
                 .content(content)
                 .author("yeseul@test.com")
@@ -47,11 +47,11 @@ public class PostsRepositoryTest {
     @Test
     public void BaseTimeEntity_등록() {
         //given
-        LocalDateTime now = LocalDateTime.of(2023, 2, 17, 0, 0, 0);
+        LocalDateTime now = LocalDateTime.of(2023, 4, 20, 0, 0, 0);
         postsRepository.save(Posts.builder()
                 .title("title")
                 .content("content")
-                        .author("author")
+                .author("author")
                 .build());
 
         //when
@@ -60,7 +60,7 @@ public class PostsRepositoryTest {
         //then
         Posts posts = postsList.get(0);
 
-        System.out.println(">>>>>>>>>>>>>>>>>> createDate - " + posts.getCreateDate()+ ", modifiedDate =" + posts.getModifiedDate());
+        System.out.println(">>>>>>>> createDate - " + posts.getCreateDate()+ ", modifiedDate =" + posts.getModifiedDate());
 
         assertThat(posts.getCreateDate()).isAfter(now);
         assertThat(posts.getModifiedDate()).isAfter(now);
